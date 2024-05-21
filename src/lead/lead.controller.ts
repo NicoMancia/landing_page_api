@@ -1,34 +1,34 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { LeadService } from './lead.service';
-import { CreateLeadDto } from './dto/create-lead.dto';
-import { UpdateLeadDto } from './dto/update-lead.dto';
+import { lead } from '@prisma/client';
 
 @Controller('lead')
 export class LeadController {
   constructor(private readonly leadService: LeadService) {}
 
   @Post()
-  create(@Body() createLeadDto: CreateLeadDto) {
+  async create(@Body() createLeadDto: lead) {
+    console.log(createLeadDto);
     return this.leadService.create(createLeadDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.leadService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.leadService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLeadDto: UpdateLeadDto) {
+  async update(@Param('id') id: string, @Body() updateLeadDto: lead) {
     return this.leadService.update(+id, updateLeadDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.leadService.remove(+id);
   }
 }

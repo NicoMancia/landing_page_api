@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { LeadService } from './lead.service';
 import { LeadController } from './lead.controller';
+import { PrismaService } from 'src/prisma.service';
 
 @Module({
   controllers: [LeadController],
-  providers: [LeadService],
+  providers: [LeadService, PrismaService],
 })
 export class LeadModule {}
